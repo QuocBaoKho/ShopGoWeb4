@@ -1,7 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using ShopGoWeb4.Models;
+using ShopGoWeb4.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+var connectionString = builder.Configuration.GetConnectionString("QlbanVaLiContext");
+
+builder.Services.AddDbContext<QlbanVaLiContext>(x => x.UseSqlServer(connectionString));
+//Add repositories
+builder.Services.AddScoped<ILoaiSPRepository, LoaiSPRepository>();
+
 
 var app = builder.Build();
 
