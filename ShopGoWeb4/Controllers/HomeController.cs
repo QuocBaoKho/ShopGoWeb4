@@ -25,6 +25,16 @@ namespace ShopGoWeb4.Controllers
             PagedList<TDanhMucSp> list = new PagedList<TDanhMucSp>(ds, pageNum, pageSize);
             return View(list);
         }
+        public IActionResult Sanphamtheoloai(string maLoai, int? page)
+        {
+            int pageSize = 8;
+            int pageNum = page == null || page < 0 ? 1 : page.Value;
+            var listSPLoai = _lbanVaLiContext.TDanhMucSps.AsNoTracking().Where(dm=>dm.MaLoai.Equals(maLoai)).OrderBy(dm=>dm.TenSp);
+            PagedList<TDanhMucSp> list = new PagedList<TDanhMucSp>(listSPLoai, pageNum, pageSize);
+            ViewBag.MaLoai = maLoai;
+            return View(list);
+
+        }
 
         public IActionResult Privacy()
         {
