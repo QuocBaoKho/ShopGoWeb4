@@ -2,6 +2,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopGoWeb4.Models;
+using ShopGoWeb4.ViewModels;
 using System.Diagnostics;
 using X.PagedList;
 
@@ -47,6 +48,18 @@ namespace ShopGoWeb4.Controllers
             ViewBag.hinh = hinhAnhs;
             ViewBag.message = $"You have received VIewbag {hinhAnhs.Count}";
             return View(sanpham);
+        }
+        public IActionResult ProductDetail(string MaSP)
+        {
+            var sanpham = _lbanVaLiContext.TDanhMucSps.Where(sp => sp.MaSp.Equals(MaSP)).FirstOrDefault();
+            if (sanpham == null)
+            {
+                return NotFound();
+            }
+            var hinhAnhs = _lbanVaLiContext.TAnhSps.Where(anh => anh.MaSp.ToLower().Equals(MaSP.ToLower())).ToList();
+            var vmd = new HomeProductDetailsViewModel(sanpham, hinhAnhs);
+            return View(vmd);
+
         }
 
         public IActionResult Privacy()
