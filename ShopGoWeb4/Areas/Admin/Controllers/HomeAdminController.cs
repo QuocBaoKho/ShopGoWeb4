@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopGoWeb4.Models;
 
@@ -24,6 +25,30 @@ namespace ShopGoWeb4.Areas.Admin.Controllers
             var plist = db.TDanhMucSps.Include(p=>p.MaChatLieuNavigation)
                 .Include(p=>p.MaHangSxNavigation).ToList();
             return View(plist); 
+        }
+        [Route("add")]
+        [HttpGet]
+        public IActionResult ThemSanPham()
+        {
+            ViewBag.MaChatLieu = new SelectList(db.TChatLieus, "MaChatLieu", "ChatLieu");
+            ViewBag.MaHangSx = new SelectList(db.THangSxes, "MaHangSx", "HangSx");
+            ViewBag.MaNuocSx = new SelectList(db.TQuocGia, "MaNuoc", "TenNuoc");
+            ViewBag.MaLoai = new SelectList(db.TLoaiSps, "MaLoai", "Loai");
+            ViewBag.MaDt = new SelectList(db.TLoaiDts, "MaDt", "TenLoai");
+            return View();
+        }
+        [Route("add")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ThemSanPham(TDanhMucSp sanp)
+        {
+            if(ModelState.IsValid)
+            {
+                db.TDanhMucSps.Add(sanp);
+                db.SaveChanges();
+                return RedirectToAction("Product_List");
+            }
+            return View(sanp);
         }
     }
 }
