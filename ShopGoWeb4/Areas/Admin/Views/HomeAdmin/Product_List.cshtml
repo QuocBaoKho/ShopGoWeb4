@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ShopGoWeb4.Models.TDanhMucSp>
+
+@{
+    ViewData["Title"] = "Product_List";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Product_List</h1>
+<div class="col-lg-12 stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Product table</h4>
+            <p class="card-description">
+            </p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Tên </th>
+                        <th> Chất liệu </th>
+                        <th> Cân nặng (kg) </th>
+                        <th> Hãng SX </th>
+                        <th> Thời gian bảo hành (tháng)</th>
+                        <th> Giá nhỏ nhất ($)</th>
+                        <th> Giá lớn nhất ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 0;
+                        string @cls = "table-success";
+                    }
+                    @foreach (var item in Model)
+                    {
+                        i++;
+                        cls = "table-success";
+                        if (i % 2 == 0)
+                        {
+                            cls = "table-primary";
+                        }
+                        <tr class="@cls">
+                            <td> @i </td>
+                            <td> @item.TenSp </td>
+                            <td>@(item.MaChatLieuNavigation != null?item.MaChatLieuNavigation.ChatLieu:"Null") </td>
+                            <td> @item.CanNang </td>
+                            <td> @(item.MaHangSxNavigation != null ? item.MaHangSxNavigation.HangSx:"Null")</td>
+                            <td> @item.ThoiGianBaoHanh </td>
+                            <td> @item.GiaNhoNhat </td>
+                            <td> @(item.GiaLonNhat != null?@item.GiaLonNhat:"Null") </td>
+
+                        </tr>
+                        
+                    }
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
