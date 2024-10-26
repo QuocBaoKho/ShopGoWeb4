@@ -2,6 +2,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopGoWeb4.Models;
+using ShopGoWeb4.Models.Authentication;
 using ShopGoWeb4.ViewModels;
 using System.Diagnostics;
 using X.PagedList;
@@ -18,7 +19,7 @@ namespace ShopGoWeb4.Controllers
             _logger = logger;
             _lbanVaLiContext = new QlbanVaLiContext();
         }
-
+        [Authentication]
         public IActionResult Index(int? page)
         {
             int pageSize = 8;

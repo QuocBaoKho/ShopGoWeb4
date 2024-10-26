@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -53,7 +54,7 @@
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+                 <a href="#"><i class="fa fa-user"></i> Login</a> 
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -119,7 +120,8 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                @* <a href="#"><i class="fa fa-user"></i> Login</a> *@
+                                <a asp-controller="Access" asp-action="Logout"><i class="fa fa-user"></i> Log out</a>
                             </div>
                         </div>
                     </div>
