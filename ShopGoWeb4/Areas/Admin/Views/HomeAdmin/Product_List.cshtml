@@ -26,6 +26,7 @@
                         <th> Thời gian bảo hành (tháng)</th>
                         <th> Giá nhỏ nhất ($)</th>
                         <th> Giá lớn nhất ($)</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,13 +44,14 @@
                         }
                         <tr class="@cls">
                             <td> @i </td>
-                            <td> @item.TenSp </td>
+                            <td> <a asp-action="ChinhSuaSanPham" asp-route-MaSp="@item.MaSp"> @item.TenSp </a> </td>
                             <td>@(item.MaChatLieuNavigation != null?item.MaChatLieuNavigation.ChatLieu:"Null") </td>
                             <td> @item.CanNang </td>
                             <td> @(item.MaHangSxNavigation != null ? item.MaHangSxNavigation.HangSx:"Null")</td>
                             <td> @item.ThoiGianBaoHanh </td>
                             <td> @item.GiaNhoNhat </td>
                             <td> @(item.GiaLonNhat != null?@item.GiaLonNhat:"Null") </td>
+                            <td> <a asp-action="Delete" asp-route-MaSp="@item.MaSp"> Delete </a> </td>
 
                         </tr>
                         
