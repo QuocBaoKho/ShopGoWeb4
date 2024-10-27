@@ -8,9 +8,55 @@
         <ul>
             @foreach(var item in Model)
             {
-                <li><a asp-controller="Home" asp-action="sanphamtheoloai" asp-route-maLoai="@item.MaLoai">@item.Loai</a></li>
-            }
+                string getUrl = "https://localhost:7140/api/productapi/" + item.MaLoai.Trim();
+                <li><a style="cursor:pointer" onclick="showProductByCategory('@getUrl')">@item.Loai</a></li>
+
+@*                 <li><a asp-controller="Home" asp-action="sanphamtheoloai" asp-route-maLoai="@item.MaLoai">@item.Loai</a></li>
+ *@            }
         </ul>
     </div>
 </div>
+<script>
+    function showProductByCategory(getUrl) {
+        let str = "";
+        console.log(23);
+        $.ajax({
+            type: "GET",
+            url: getUrl,
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (key, val) {
+                    // Construct the HTML for each product and append to `str`
+                    let image = val.anhDaiDien.trim();
+                    str += `
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="../Vali/${image}"
+                                style="background-image: url(&quot;../Vali/${image}&quot;);">
+                                <ul class="featured__item__pic__hover">
+                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="/Home/ProductDetail?MaSP=${val.maSp}">${val.tenSp}</a></h6>
+                                <h5>$${val.giaNhoNhat}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                });
+
+                // After the loop, update the `#product_listing` element with the complete HTML
+                $("#product_listing").html(str);
+            },
+            error: function (ok) { // Fix error handler syntax
+                console.error("Error:", ok); // Handle any errors
+                alert("Co loi")
+            }
+        });
+    }
+
+</script>
 
