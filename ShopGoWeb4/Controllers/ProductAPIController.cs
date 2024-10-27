@@ -24,7 +24,7 @@ namespace ShopGoWeb4.Controllers
                            });
             return sanPham;
         }
-        [HttpGet]
+        [HttpGet("{maLoai}")]
         public IEnumerable<Product> GetProductsByCategory(string maLoai)
         {
             var sanPham = (from p in db.TDanhMucSps
